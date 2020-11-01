@@ -28,7 +28,25 @@ Widget buttonThemeAndIncreaseVariableOnPressed(
     height: 100.0,
     child: RaisedButton(
       onPressed: () {
-        value++;
+        print('$buttonName was press $value times');
+      },
+      onLongPress: () {
+        print('$buttonName long pressed');
+      },
+      color: color,
+      child: Text(buttonName),
+    ),
+  );
+}
+
+Widget buttonThemeAndIncreaseVariableOnPressedOne(
+    String buttonName, num value, Function(num) increaseValue, Color color) {
+  return ButtonTheme(
+    minWidth: 100.0,
+    height: 100.0,
+    child: RaisedButton(
+      onPressed: () {
+        increaseValue(value);
         print('$buttonName was press $value times');
       },
       onLongPress: () {
