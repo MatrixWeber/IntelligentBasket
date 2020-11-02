@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'fleisch_page.dart';
 import 'gemuese_page.dart';
-import 'helper_functions.dart';
+import '../misc/helper_functions.dart';
 import 'obst_page.dart';
 import 'test_widget.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  const HomePage({Key key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -17,28 +17,28 @@ class _HomePageState extends State<HomePage> {
   void _moveToObstPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ObstPage()),
+      MaterialPageRoute(builder: (context) => const ObstPage()),
     );
   }
 
   void _moveToGemuesePage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GemuesePage()),
+      MaterialPageRoute(builder: (context) => const GemuesePage()),
     );
   }
 
   void _moveToFleischPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => FleischPage()),
+      MaterialPageRoute(builder: (context) => const FleischPage()),
     );
   }
 
   void _moveToTestPage() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => TestWidget()),
+      MaterialPageRoute(builder: (context) => const TestWidget()),
     );
   }
 
@@ -53,21 +53,21 @@ class _HomePageState extends State<HomePage> {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
+              child: Text('Drawer Header'),
             ),
             ListTile(
-              title: Text('Item 1'),
+              title: const Text('Item 1'),
               onTap: () {
                 // Update the state of the app.
                 // ...
               },
             ),
             ListTile(
-              title: Text('Item 2'),
+              title: const Text('Item 2'),
               onTap: () {
                 // Update the state of the app.
                 // ...
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
         child: Container(
           child: Column(
             children: [
-              TextField(),
+              const TextField(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [

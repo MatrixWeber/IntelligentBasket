@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'helper_functions.dart';
+import '../misc/helper_functions.dart';
 
 class ObstPage extends StatefulWidget {
-  ObstPage({Key key}) : super(key: key);
+  const ObstPage({Key key}) : super(key: key);
 
   @override
   _ObstPageState createState() => _ObstPageState();
@@ -29,21 +29,21 @@ class _ObstPageState extends State<ObstPage> {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
+              child: Text('Drawer Header'),
             ),
             ListTile(
-              title: Text('Item 1'),
+              title: const Text('Item 1'),
               onTap: () {
                 // Update the state of the app.
                 // ...
               },
             ),
             ListTile(
-              title: Text('Item 2'),
+              title: const Text('Item 2'),
               onTap: () {
                 // Update the state of the app.
                 // ...
@@ -74,13 +74,11 @@ class _ObstPageState extends State<ObstPage> {
         // ),
         color: Colors.amber,
         child: Column(
-          mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Padding(
-              padding: EdgeInsets.all(30),
+              padding: const EdgeInsets.all(30),
               child: Row(
-                mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   buttonThemeAndIncreaseVariableOnPressed(
@@ -93,7 +91,7 @@ class _ObstPageState extends State<ObstPage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 30, right: 30),
+              padding: const EdgeInsets.only(left: 30, right: 30),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intelligent_basket/misc/helper_functions.dart';
 
-import 'helper_functions.dart';
+import '../misc/helper_functions.dart';
 
 String s() => 'helper_functions.dart';
 
 class GemuesePage extends StatefulWidget {
-  GemuesePage({Key key}) : super(key: key);
+  const GemuesePage({Key key}) : super(key: key);
 
   @override
   _GemuesePageState createState() => _GemuesePageState();
@@ -26,21 +27,21 @@ class _GemuesePageState extends State<GemuesePage> {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
+              child: Text('Drawer Header'),
             ),
             ListTile(
-              title: Text('Item 1'),
+              title: const Text('Item 1'),
               onTap: () {
                 // Update the state of the app.
                 // ...
               },
             ),
             ListTile(
-              title: Text('Item 2'),
+              title: const Text('Item 2'),
               onTap: () {
                 // Update the state of the app.
                 // ...
@@ -56,13 +57,11 @@ class _GemuesePageState extends State<GemuesePage> {
       body: Container(
         color: Colors.blueGrey[100],
         child: Column(
-          mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Padding(
-              padding: EdgeInsets.all(30),
+              padding: const EdgeInsets.all(30),
               child: Row(
-                mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   buttonThemeAndIncreaseVariableOnPressed(

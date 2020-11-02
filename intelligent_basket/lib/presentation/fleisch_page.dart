@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FleischPage extends StatefulWidget {
-  FleischPage({Key key}) : super(key: key);
+  const FleischPage({Key key}) : super(key: key);
 
   @override
   _FleischPageState createState() => _FleischPageState();
@@ -19,13 +19,14 @@ class _FleischPageState extends State<FleischPage> {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
+              child: Text('Drawer Header'),
             ),
             ListTile(
+              // ignore: prefer_const_constructors
               title: Text('Item 1'),
               onTap: () {
                 // Update the state of the app.
@@ -33,7 +34,7 @@ class _FleischPageState extends State<FleischPage> {
               },
             ),
             ListTile(
-              title: Text('Item 2'),
+              title: const Text('Item 2'),
               onTap: () {
                 // Update the state of the app.
                 // ...
@@ -49,13 +50,11 @@ class _FleischPageState extends State<FleischPage> {
       body: Container(
         color: Colors.blueGrey[100],
         child: Column(
-          mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Padding(
-              padding: EdgeInsets.all(30),
+              padding: const EdgeInsets.all(30),
               child: Row(
-                mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ButtonTheme(
@@ -68,8 +67,8 @@ class _FleischPageState extends State<FleischPage> {
                       onPressed: () {
                         print('Schweineflesch pressed');
                       },
-                      child: const Text('Schweineflesch'),
                       color: Colors.orange,
+                      child: const Text('Schweineflesch'),
                     ),
                   ),
                   ButtonTheme(
@@ -82,8 +81,8 @@ class _FleischPageState extends State<FleischPage> {
                       onPressed: () {
                         print('Rindfleisch pressed');
                       },
-                      child: const Text('Rindfleisch'),
                       color: Colors.yellow,
+                      child: const Text('Rindfleisch'),
                     ),
                   ),
                   ButtonTheme(
@@ -96,8 +95,8 @@ class _FleischPageState extends State<FleischPage> {
                       onPressed: () {
                         print('Hakfleisch pressed');
                       },
-                      child: const Text('Hakfleisch'),
                       color: Colors.green,
+                      child: const Text('Hakfleisch'),
                     ),
                   ),
                 ],
