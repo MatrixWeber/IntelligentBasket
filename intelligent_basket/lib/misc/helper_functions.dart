@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intelligent_basket/domain/entity/count_value_entity.dart';
+import 'package:intelligent_basket/domain/entity/article_entity.dart';
 
 // diese funktion gibt einen RaisedButton zurück
 // Der RaisedButton beinhaltet 3 Variablen 1. Button Name 2. go to page function

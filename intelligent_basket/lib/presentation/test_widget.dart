@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intelligent_basket/domain/entity/count_value_entity.dart';
+import 'package:intelligent_basket/domain/entity/article_entity.dart';
 
 import '../misc/helper_functions.dart';
 
