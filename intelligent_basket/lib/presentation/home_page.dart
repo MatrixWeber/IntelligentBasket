@@ -4,7 +4,6 @@ import 'fleisch_page.dart';
 import 'gemuese_page.dart';
 import '../misc/helper_functions.dart';
 import 'obst_page.dart';
-import 'test_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -35,12 +34,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _moveToTestPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const TestWidget()),
-    );
-  }
+  // void _moveToTestPage() {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => const TierProdukteWidget()),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +93,8 @@ class _HomePageState extends State<HomePage> {
                       'Gemuese', _moveToGemuesePage, Colors.green),
                   buttonThemeAndMoveToPage(
                       'Fleisch', _moveToFleischPage, Colors.red),
-                  buttonThemeAndMoveToPage(
-                      'Test', _moveToTestPage, Colors.blue),
+                  // buttonThemeAndMoveToPage(
+                  //     'Test', _moveToTestPage, Colors.blue),
                 ],
               ),
             ],

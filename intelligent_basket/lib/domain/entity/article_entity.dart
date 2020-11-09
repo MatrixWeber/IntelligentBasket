@@ -16,6 +16,7 @@ class ArticleEntity {
     }
   }
 
+  set value(num value) => _value = value;
   num get value => _value;
   String get name => _name;
   Color get color => _color;

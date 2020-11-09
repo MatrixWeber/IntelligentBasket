@@ -1,5 +1,8 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:intelligent_basket/domain/entity/article_entity.dart';
+
+import 'custom_dialog.dart';
 
 // diese funktion gibt einen RaisedButton zurück
 // Der RaisedButton beinhaltet 3 Variablen 1. Button Name 2. go to page function
@@ -40,8 +43,11 @@ Widget buttonThemeAndIncreaseVariableOnPressed(
   );
 }
 
-Widget buttonThemeAndIncreaseVariableOnPressedOne(String buttonName,
-    ArticleEntity articleEntity, Function operateOnVariable, Color color) {
+Widget buttonThemeAndIncreaseVariableOnPressedOne(
+  BuildContext context,
+  ArticleEntity articleEntity,
+  Function operateOnVariable,
+) {
   return Stack(
     alignment: Alignment.topCenter,
     children: [
@@ -54,29 +60,60 @@ Widget buttonThemeAndIncreaseVariableOnPressedOne(String buttonName,
         child: RaisedButton(
           onPressed: () {
             operateOnVariable(articleEntity, articleEntity.add);
-            print('$buttonName was press ${articleEntity.value} times');
+            print(
+                '${articleEntity.name} was press ${articleEntity.value} times');
           },
           onLongPress: () {
-            print('$buttonName long pressed');
+            showDialog(
+              child: CustomAlertDialog(
+                articleEntity,
+                operateOnVariable,
+                title: articleEntity.name,
+                labelText: "Menge",
+                errorTextEmpty: "Gib mindestens eine 0 ein",
+                //  boxName: "user_box",
+                //  userModelHive: UserModelHive()
+                //    ..id = DateTime.now()
+                //    ..giverName = _txtUserController.text
+                //    ..pinCodeNumber = "",
+                //  routeName: HomeScreen.routeNamed,
+              ),
+              context: context,
+              barrierDismissible: false,
+            );
+
+            // AwesomeDialog(
+            //   context: context,
+            //   width: 280,
+            //   buttonsBorderRadius: BorderRadius.all(Radius.circular(2)),
+            //   headerAnimationLoop: false,
+            //   animType: AnimType.BOTTOMSLIDE,
+            //   title: articleEntity.name,
+            //   desc: '',
+            //   btnCancelOnPress: () {},
+            //   btnOkOnPress: () {},
+            // )..show();
+            // print('$buttonName long pressed');
           },
-          color: color,
-          child: Text(buttonName),
+          color: articleEntity.color,
+          child: Text(articleEntity.name),
         ),
       ),
       Positioned(
-        bottom: 63,
+        bottom: 65,
         child: ButtonTheme(
           minWidth: 10.0,
-          height: 20.0,
+          height: 10.0,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
               side: const BorderSide(color: Colors.black)),
           child: RaisedButton(
             onPressed: () {
               operateOnVariable(articleEntity, articleEntity.substract);
-              print('$buttonName was press ${articleEntity.value} times');
+              print(
+                  '${articleEntity.name} was press ${articleEntity.value} times');
             },
-            color: color,
+            color: articleEntity.color,
             child: Text(articleEntity.value.toString()),
           ),
         ),
