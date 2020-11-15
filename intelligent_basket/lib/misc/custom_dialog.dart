@@ -8,7 +8,7 @@ class CustomAlertDialog extends StatefulWidget {
   final String labelText;
   final String errorTextEmpty;
   final String boxName;
-  ArticleEntity _articleEntity;
+  final ArticleEntity _articleEntity;
   final Function operateOnVariable;
 
 //  final UserModelHive userModelHive;
@@ -31,23 +31,41 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
 //  final Repository _repository = Repository();
   final formKeys = GlobalKey<FormState>();
 
-  void changeText() {
+  void changeText(bool wasDeletePressed) {
     setState(() {
-      widget._articleEntity.value = int.parse(widget.controller.text);
+      widget._articleEntity.value =
+          wasDeletePressed ? 0 : int.parse(widget.controller.text);
       Navigator.pop(context);
       widget.operateOnVariable(widget._articleEntity, null);
     });
   }
 
+  void onFieldTapped() {
+    if (widget._articleEntity.value <= 0) {
+      setState(() {
+        widget.controller.text = '';
+      });
+    }
+  }
+
+  @override
+  initState() {
+    super.initState();
+    widget.controller.text = widget._articleEntity.value.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
-    widget.controller.text = widget._articleEntity.value.toString();
     return Form(
       key: formKeys,
       child: _SystemPadding(
         child: AlertDialog(
           title: Text(widget.title),
           content: TextFormField(
+            keyboardType: TextInputType.number,
+            onTap: () {
+              onFieldTapped();
+            },
             controller: widget.controller,
             decoration: InputDecoration(
               labelText: widget.labelText,
@@ -68,7 +86,7 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
                 color: Colors.red,
                 textTheme: ButtonTextTheme.primary,
                 onPressed: () {
-                  // TODO remove item
+                  changeText(true);
                 }),
             FlatButton.icon(
                 icon: const Icon(Icons.shopping_bag),
@@ -76,7 +94,7 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
                 color: Theme.of(context).primaryColor,
                 textTheme: ButtonTextTheme.primary,
                 onPressed: () {
-                  changeText();
+                  changeText(false);
                 }),
           ],
         ),
@@ -92,7 +110,7 @@ class _SystemPadding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
+    final mediaQuery = MediaQuery.of(context);
     print(mediaQuery.viewInsets.bottom);
     return AnimatedContainer(
       padding: mediaQuery.padding,

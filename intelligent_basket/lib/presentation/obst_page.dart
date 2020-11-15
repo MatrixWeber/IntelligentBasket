@@ -20,45 +20,53 @@ class _ObstPageState extends State<ObstPage> {
   ArticleEntity ananas = ArticleEntity(0, 'Ananas', Colors.yellow);
   ArticleEntity pfirsich = ArticleEntity(0, 'Pfirsich', Colors.deepOrange);
   ArticleEntity kiwi = ArticleEntity(0, 'Kiwi', Colors.green);
-  Map<String, ArticleEntity> articleEntryMap = <String, ArticleEntity>{};
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    articleEntryMap[orange.name] = orange;
-    articleEntryMap[bannane.name] = bannane;
-    articleEntryMap[apfel.name] = apfel;
-    articleEntryMap[traube.name] = traube;
-    articleEntryMap[kirsche.name] = kirsche;
-    articleEntryMap[pflaume.name] = pflaume;
-    articleEntryMap[ananas.name] = ananas;
-    articleEntryMap[pfirsich.name] = pfirsich;
-    articleEntryMap[kiwi.name] = kiwi;
-  }
+  ArticleEntity himbeere = ArticleEntity(0, 'Himbeere', Colors.pink[900]);
+  ArticleEntity erdbeere = ArticleEntity(0, 'Erdbeere', Colors.red[400]);
+  ArticleEntity blaubeere = ArticleEntity(0, 'Blaubeere', Colors.blue[700]);
+  ArticleEntity melone = ArticleEntity(0, 'Melone', Colors.yellow[700]);
+  ArticleEntity wassermelone = ArticleEntity(0, 'W.Melone', Colors.green[400]);
+  ArticleEntity johannisbeere =
+      ArticleEntity(0, 'Johannis\n   beere', Colors.blue[900]);
+  Map<String, ArticleEntity> articleAlreadyInShoppingListMap =
+      <String, ArticleEntity>{};
 
   List<Widget> getList() {
     final List<Widget> childs = [];
-    for (final entry in articleEntryMap.values) {
-      childs.add(entry.value > 0 ? ArticleCard(entry) : Container());
+    // for (final entry in articleAlreadyInShoppingListMap.) {
+    //   if (entry.value > 0) {
+    //     childs.add(ArticleCard(entry));
+    //   }
+    // }
+    if (articleAlreadyInShoppingListMap.isNotEmpty) {
+      final mapList = articleAlreadyInShoppingListMap.values.toList();
+      for (var entry = mapList.length - 1; entry >= 0; entry--) {
+        if (mapList[entry].value > 0) {
+          childs.add(ArticleCard(mapList[entry]));
+        }
+      }
+    }
+    if (childs.isEmpty) {
+      childs.add(Container());
     }
     return childs;
   }
 
+  void operateOnVariable(ArticleEntity articleEntity, Function operation) {
+    setState(() {
+      if (operation != null) {
+        operation();
+      } else {
+        articleEntity.value = articleEntity.value;
+      }
+    });
+    removeOrAddArticleToShopingMap(
+        articleEntity, articleAlreadyInShoppingListMap);
+  }
+
   @override
   Widget build(BuildContext context) {
-    void operateOnVariable(ArticleEntity articleEntity, Function operation) {
-      setState(() {
-        if (operation != null) {
-          operation();
-        } else {
-          articleEntity.value = articleEntity.value;
-        }
-      });
-    }
-
     return Scaffold(
-      drawer: Drawer(
+      endDrawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
         // space to fit everything.
@@ -92,108 +100,114 @@ class _ObstPageState extends State<ObstPage> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Einkaufszettel'),
+        leading: const Icon(Icons.check_box),
       ),
       body: Container(
+          color: Colors.grey,
           child: Column(
-        children: [
-          Expanded(
-            flex: 2,
-            child: Container(
-              height: 100,
-              width: 500,
-              decoration: BoxDecoration(
-                border: Border.all(width: 5, color: Colors.black54),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: getList(),
+            children: [
+              Expanded(
+                flex: 2,
+                child: Container(
+                  height: 100,
+                  width: 500,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(width: 5, color: Colors.black54),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: getList(),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: SingleChildScrollView(
-              child: Container(
-                color: Colors.grey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Row(
+              Expanded(
+                flex: 3,
+                child: Container(
+                  color: Colors.grey,
+                  child: SingleChildScrollView(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        buttonThemeAndIncreaseVariableOnPressedOne(
-                            context, orange, operateOnVariable),
-                        buttonThemeAndIncreaseVariableOnPressedOne(
-                            context, bannane, operateOnVariable),
-                        buttonThemeAndIncreaseVariableOnPressedOne(
-                            context, apfel, operateOnVariable),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            buttonThemeAndIncreaseVariableOnPressed(
+                                context, orange, operateOnVariable),
+                            buttonThemeAndIncreaseVariableOnPressed(
+                                context, bannane, operateOnVariable),
+                            buttonThemeAndIncreaseVariableOnPressed(
+                                context, apfel, operateOnVariable),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            buttonThemeAndIncreaseVariableOnPressed(
+                                context, traube, operateOnVariable),
+                            buttonThemeAndIncreaseVariableOnPressed(
+                                context, kirsche, operateOnVariable),
+                            buttonThemeAndIncreaseVariableOnPressed(
+                                context, pflaume, operateOnVariable),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            buttonThemeAndIncreaseVariableOnPressed(
+                                context, ananas, operateOnVariable),
+                            buttonThemeAndIncreaseVariableOnPressed(
+                                context, pfirsich, operateOnVariable),
+                            buttonThemeAndIncreaseVariableOnPressed(
+                                context, kiwi, operateOnVariable),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            buttonThemeAndIncreaseVariableOnPressed(
+                                context, himbeere, operateOnVariable),
+                            buttonThemeAndIncreaseVariableOnPressed(
+                                context, erdbeere, operateOnVariable),
+                            buttonThemeAndIncreaseVariableOnPressed(
+                                context, blaubeere, operateOnVariable),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            buttonThemeAndIncreaseVariableOnPressed(
+                                context, melone, operateOnVariable),
+                            buttonThemeAndIncreaseVariableOnPressed(
+                                context, wassermelone, operateOnVariable),
+                            buttonThemeAndIncreaseVariableOnPressed(
+                                context, johannisbeere, operateOnVariable),
+                          ],
+                        ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        buttonThemeAndIncreaseVariableOnPressedOne(
-                            context, traube, operateOnVariable),
-                        buttonThemeAndIncreaseVariableOnPressedOne(
-                            context, kirsche, operateOnVariable),
-                        buttonThemeAndIncreaseVariableOnPressedOne(
-                            context, pflaume, operateOnVariable),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        buttonThemeAndIncreaseVariableOnPressedOne(
-                            context, ananas, operateOnVariable),
-                        buttonThemeAndIncreaseVariableOnPressedOne(
-                            context, pfirsich, operateOnVariable),
-                        buttonThemeAndIncreaseVariableOnPressedOne(
-                            context, kiwi, operateOnVariable),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        buttonThemeAndIncreaseVariableOnPressedOne(
-                            context, ananas, operateOnVariable),
-                        buttonThemeAndIncreaseVariableOnPressedOne(
-                            context, pfirsich, operateOnVariable),
-                        buttonThemeAndIncreaseVariableOnPressedOne(
-                            context, kiwi, operateOnVariable),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        buttonThemeAndIncreaseVariableOnPressedOne(
-                            context, ananas, operateOnVariable),
-                        buttonThemeAndIncreaseVariableOnPressedOne(
-                            context, pfirsich, operateOnVariable),
-                        buttonThemeAndIncreaseVariableOnPressedOne(
-                            context, kiwi, operateOnVariable),
-                      ],
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ),
-        ],
-      )),
+            ],
+          )),
     );
   }
 }

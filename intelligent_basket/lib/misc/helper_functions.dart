@@ -16,9 +16,6 @@ Widget buttonThemeAndMoveToPage(
       onPressed: () {
         moveToPageFuncton();
       },
-      onLongPress: () {
-        print('$buttonName long pressed');
-      },
       color: color,
       child: Text(buttonName),
     ),
@@ -26,24 +23,6 @@ Widget buttonThemeAndMoveToPage(
 }
 
 Widget buttonThemeAndIncreaseVariableOnPressed(
-    String buttonName, num value, Color color) {
-  return ButtonTheme(
-    minWidth: 100.0,
-    height: 100.0,
-    child: RaisedButton(
-      onPressed: () {
-        print('$buttonName was press $value times');
-      },
-      onLongPress: () {
-        print('$buttonName long pressed');
-      },
-      color: color,
-      child: Text(buttonName),
-    ),
-  );
-}
-
-Widget buttonThemeAndIncreaseVariableOnPressedOne(
   BuildContext context,
   ArticleEntity articleEntity,
   Function operateOnVariable,
@@ -60,8 +39,6 @@ Widget buttonThemeAndIncreaseVariableOnPressedOne(
         child: RaisedButton(
           onPressed: () {
             operateOnVariable(articleEntity, articleEntity.add);
-            print(
-                '${articleEntity.name} was press ${articleEntity.value} times');
           },
           onLongPress: () {
             showDialog(
@@ -71,29 +48,10 @@ Widget buttonThemeAndIncreaseVariableOnPressedOne(
                 title: articleEntity.name,
                 labelText: "Menge",
                 errorTextEmpty: "Gib mindestens eine 0 ein",
-                //  boxName: "user_box",
-                //  userModelHive: UserModelHive()
-                //    ..id = DateTime.now()
-                //    ..giverName = _txtUserController.text
-                //    ..pinCodeNumber = "",
-                //  routeName: HomeScreen.routeNamed,
               ),
               context: context,
               barrierDismissible: false,
             );
-
-            // AwesomeDialog(
-            //   context: context,
-            //   width: 280,
-            //   buttonsBorderRadius: BorderRadius.all(Radius.circular(2)),
-            //   headerAnimationLoop: false,
-            //   animType: AnimType.BOTTOMSLIDE,
-            //   title: articleEntity.name,
-            //   desc: '',
-            //   btnCancelOnPress: () {},
-            //   btnOkOnPress: () {},
-            // )..show();
-            // print('$buttonName long pressed');
           },
           color: articleEntity.color,
           child: Text(articleEntity.name),
@@ -110,8 +68,6 @@ Widget buttonThemeAndIncreaseVariableOnPressedOne(
           child: RaisedButton(
             onPressed: () {
               operateOnVariable(articleEntity, articleEntity.substract);
-              print(
-                  '${articleEntity.name} was press ${articleEntity.value} times');
             },
             color: articleEntity.color,
             child: Text(articleEntity.value.toString()),
@@ -120,4 +76,23 @@ Widget buttonThemeAndIncreaseVariableOnPressedOne(
       ),
     ],
   );
+}
+
+void removeOrAddArticleToShopingMap(ArticleEntity articleEntity,
+    Map<String, ArticleEntity> articleAlreadyInShoppingListMap) {
+  bool wasEntryRemoved = false;
+  bool wasKeyFound = false;
+  for (final entry in articleAlreadyInShoppingListMap.entries) {
+    if (entry.key == articleEntity.name) {
+      wasKeyFound = true;
+      if (articleEntity.value <= 0) {
+        articleAlreadyInShoppingListMap.remove(entry.key);
+        wasEntryRemoved = true;
+        break;
+      }
+    }
+  }
+  if (!wasEntryRemoved && !wasKeyFound) {
+    articleAlreadyInShoppingListMap[articleEntity.name] = articleEntity;
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intelligent_basket/domain/entity/article_entity.dart';
 import 'package:intelligent_basket/misc/helper_functions.dart';
 
 import '../misc/helper_functions.dart';
@@ -13,9 +14,23 @@ class GemuesePage extends StatefulWidget {
 }
 
 class _GemuesePageState extends State<GemuesePage> {
+  ArticleEntity karotte = ArticleEntity(0, 'Karotte', Colors.orange[800]);
+  ArticleEntity kartoffel = ArticleEntity(0, 'Kartoffel', Colors.brown);
+  ArticleEntity pilz = ArticleEntity(0, 'Pilz', Colors.grey[600]);
   num numOfKarotte = 0;
   num numOfKartoffel = 0;
   num numOfSchampinions = 0;
+
+  void operateOnVariable(ArticleEntity articleEntity, Function operation) {
+    setState(() {
+      if (operation != null) {
+        operation();
+      } else {
+        articleEntity.value = articleEntity.value;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,11 +80,11 @@ class _GemuesePageState extends State<GemuesePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   buttonThemeAndIncreaseVariableOnPressed(
-                      'Kartoffel', numOfKartoffel, Colors.brown),
+                      context, kartoffel, operateOnVariable),
                   buttonThemeAndIncreaseVariableOnPressed(
-                      'Karotte', numOfKarotte, Colors.orange[800]),
+                      context, karotte, operateOnVariable),
                   buttonThemeAndIncreaseVariableOnPressed(
-                      'Pilz', numOfSchampinions, Colors.grey[600]),
+                      context, pilz, operateOnVariable),
                 ],
               ),
             ),
