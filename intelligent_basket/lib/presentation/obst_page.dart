@@ -29,19 +29,21 @@ class _ObstPageState extends State<ObstPage> {
       ArticleEntity(0, 'Johannis\n   beere', Colors.blue[900]);
   Map<String, ArticleEntity> articleAlreadyInShoppingListMap =
       <String, ArticleEntity>{};
+  bool appBarCheckBoxWasClicked = true;
 
   List<Widget> getList() {
     final List<Widget> childs = [];
-    // for (final entry in articleAlreadyInShoppingListMap.) {
-    //   if (entry.value > 0) {
-    //     childs.add(ArticleCard(entry));
-    //   }
-    // }
     if (articleAlreadyInShoppingListMap.isNotEmpty) {
       final mapList = articleAlreadyInShoppingListMap.values.toList();
       for (var entry = mapList.length - 1; entry >= 0; entry--) {
         if (mapList[entry].value > 0) {
-          childs.add(ArticleCard(mapList[entry]));
+          if (appBarCheckBoxWasClicked) {
+            childs.add(ArticleCard(mapList[entry], rebuild));
+          } else {
+            if (!mapList[entry].selected) {
+              childs.add(ArticleCard(mapList[entry], rebuild));
+            }
+          }
         }
       }
     }
@@ -61,6 +63,10 @@ class _ObstPageState extends State<ObstPage> {
     });
     removeOrAddArticleToShopingMap(
         articleEntity, articleAlreadyInShoppingListMap);
+  }
+
+  void rebuild() {
+    setState(() {});
   }
 
   @override
@@ -100,7 +106,16 @@ class _ObstPageState extends State<ObstPage> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Einkaufszettel'),
-        leading: const Icon(Icons.check_box),
+        leading: InkWell(
+          onTap: () {
+            setState(() {
+              appBarCheckBoxWasClicked = !appBarCheckBoxWasClicked;
+            });
+          },
+          child: appBarCheckBoxWasClicked
+              ? const Icon(Icons.check_box)
+              : const Icon(Icons.check_box_outline_blank),
+        ),
       ),
       body: Container(
           color: Colors.grey,

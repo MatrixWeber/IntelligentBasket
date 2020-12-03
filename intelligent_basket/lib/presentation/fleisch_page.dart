@@ -32,7 +32,7 @@ class _FleischPageState extends State<FleischPage> {
       final mapList = articleEntryMap.values.toList();
       for (var entry = mapList.length - 1; entry >= 0; entry--) {
         if (mapList[entry].value > 0) {
-          childs.add(ArticleCard(mapList[entry]));
+          childs.add(ArticleCard(mapList[entry], setState));
         }
       }
     }

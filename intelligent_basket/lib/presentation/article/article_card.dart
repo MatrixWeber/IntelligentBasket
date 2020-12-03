@@ -3,35 +3,34 @@ import 'package:intelligent_basket/domain/entity/article_entity.dart';
 
 class ArticleCard extends StatefulWidget {
   final ArticleEntity _articleEntity;
+  final Function rebuidFunction;
 
-  const ArticleCard(this._articleEntity, {Key key}) : super(key: key);
+  ArticleCard(this._articleEntity, this.rebuidFunction, {Key key})
+      : super(key: key) {}
 
   @override
   _ArticleCardState createState() => _ArticleCardState();
 }
 
 class _ArticleCardState extends State<ArticleCard> {
-  bool wasCheckBoxTaped = false;
-
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: wasCheckBoxTaped ? Colors.green : Colors.white,
+      color: widget._articleEntity.selected ? Colors.green : Colors.white,
       child: Row(
-        mainAxisSize: MainAxisSize.max,
         children: [
           Checkbox(
-              value: wasCheckBoxTaped,
+              value: widget._articleEntity.selected,
               onChanged: (value) {
                 setState(() {
-                  wasCheckBoxTaped = value;
+                  widget._articleEntity.selected = value;
                 });
+                widget.rebuidFunction();
               }),
           InkWell(
             onTap: () =>
                 print("card: ${widget._articleEntity.name} was presed "),
             child: Row(
-              mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
