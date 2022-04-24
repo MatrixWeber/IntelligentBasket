@@ -1,4 +1,3 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:intelligent_basket/domain/entity/article_entity.dart';
 
@@ -42,7 +41,7 @@ Widget buttonThemeAndIncreaseVariableOnPressed(
           },
           onLongPress: () {
             showDialog(
-              child: CustomAlertDialog(
+              builder: (context) => CustomAlertDialog(
                 articleEntity,
                 operateOnVariable,
                 title: articleEntity.name,
